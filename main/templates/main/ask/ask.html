@@ -1,0 +1,31 @@
+{% extends 'main/base/base.html' %}
+
+{% block content %}
+
+    <div class="login">
+        <span id="login">New Question</span> 
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Title</label>
+                <input type="text" class="form-control"  id="exampleInputEmail1" placeholder="Enter question title">
+            </div>
+
+            <div class="form-group">
+                <label for="Textarea">Text</label>
+                <textarea class="form-control" name="text" id="" cols="42" rows="10"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="tags">Tags</label>
+                <input type="text" class="form-control"  id="tags" placeholder="Enter question tags">
+            </div>
+
+            {% if message %}
+                <span class="message">{{ message }}</span>
+            {% endif %} <br>
+            
+            <button type="submit" class="btn btn-primary">Ask</button>
+      </form>
+    </div> 
+
+{% endblock %}

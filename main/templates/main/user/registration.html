@@ -1,0 +1,47 @@
+{% extends 'main/base/base.html' %}
+
+{% block content %}
+
+    <div class="login">
+        <span id="login">Registration</span> 
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Login</label>
+                <input type="text" class="form-control"  id="exampleInputEmail1" placeholder="Enter your login">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail2">Email</label>
+                <input type="email" class="form-control"  id="exampleInputEmail2" placeholder="Enter your Email">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail3">Nickname</label>
+                <input type="text" class="form-control"  id="exampleInputEmail3" placeholder="Enter your nickname">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter your password">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword2">Repeat password</label>
+                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Enter your password">
+            </div>
+
+            {% if message %}
+                <span class="message">{{ message }}</span>
+            {% endif %} <br>
+
+            <div class="form-group">
+                <label for="exampleFormControlFile1">Upload avatar</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+              </div>
+
+            <button type="submit" class="btn btn-primary">Sign up</button>
+      </form>
+      <a href="{% url 'login' %}">do you already have an account?</a>
+    </div> 
+
+{% endblock %}

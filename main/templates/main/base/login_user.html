@@ -1,0 +1,17 @@
+{% load static %}
+
+<div class="row">
+    <div class="col-4">
+        <div class="avatar-nav">
+            <img src="{% static user_info.photo %}" alt="lost" />
+        </div>       
+    </div>
+
+    <div class="col-8">
+        <div class="user-info">
+            <span>{{ user_info.nickname }}</span> <br>
+            <a href="{% url 'settings' %}">Settings</a>
+            <a href="#">log out</a>
+        </div>
+    </div>
+</div>

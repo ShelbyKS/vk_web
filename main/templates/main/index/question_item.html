@@ -1,0 +1,44 @@
+{% load static %}
+{% load mathfilters %}
+
+<div class="question">
+    <div class="row">
+        <div class="col-3">
+            <div class="avatar">
+                <img src="{% static question.avatar %}" alt="lost" />
+            </div>
+            <br>
+            <div class="rating-result">
+
+                {% with counter=question.rating %} 
+                {% for i in '12345'|make_list %}
+
+                    {% if counter|sub:i >= 0 %}
+                        <span class="active"></span>
+                    {% else %}
+                        <span></span>
+                    {% endif %}
+
+                {% endfor %}
+                {% endwith %}
+
+            </div>
+            
+        </div>
+        <div class="col-9">
+            <h2 class="question-title"><a href="{% url 'question_page' question.id %}">{{ question.title }}</a></h2>
+            <div class="question-text">
+                {{ question.text }}
+            </div>
+            <br>
+            <div class="question-answers">
+                <a href="">answers (3)    </a>
+            </div>
+            <div class="question-tags">
+                <span>Tags: </span>
+                <a href="">Python</a>
+                <a href="">Django</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+{% extends 'main/base/base.html' %}
+
+{% block content %}
+
+{% if type == 'new' %}
+    {% include 'main/index/titles/new_questions_title.html' %}
+{% elif type == 'hot' %}
+    {% include 'main/index/titles/hot_questions_title.html' %}
+{% elif type == 'tag' %}
+    {% include 'main/index/titles/tag_questions_title.html' %} 
+{% endif %}
+
+{% for question in questions %}
+    {% include 'main/index/question_item.html' %}
+{% endfor %}
+
+{% include 'main/index/pagination.html' %}
+
+
+{% endblock %}
