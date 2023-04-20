@@ -21,14 +21,13 @@
             </div>
 
             <div class="form-group">
-                <label for="exampleFormControlFile1">Avatar</label>
+                <label for="exampleFormControlFile1" id="user-photo">Avatar</label> 
                 <div class="user-photo">
                     <img src="{% static user_info.photo %}" alt="">
                 </div>
                 <input type="text" class="form-control"  value="{{ user_info.photo }}" id="user-photo_settings">
                 <input type="file" class="form-control-file" >
               </div>
-
             <button type="submit" class="btn btn-primary">Save</button>
       </form>
     </div> 

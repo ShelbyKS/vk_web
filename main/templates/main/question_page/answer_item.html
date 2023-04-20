@@ -1,0 +1,51 @@
+{% load static %}
+{% load mathfilters %}
+
+<div class="answer">
+    <div class="row">
+        <div class="col-3">
+            <div class="avatar">
+                <img src="{% static answer.user_avatar %}" alt="lost" />
+            </div>
+            <br>
+            <div class="rating-result">
+
+                {% with counter=answer.rating %} 
+                {% for i in '12345'|make_list %}
+
+                    {% if counter|sub:i >= 0 %}
+                        <span class="active"></span>
+                    {% else %}
+                        <span></span>
+                    {% endif %}
+
+                {% endfor %}
+                {% endwith %}
+
+            </div>
+            
+        </div>
+        <div class="col-9">
+            <div class="question-text">
+                {{ answer.text }}
+            </div>
+            <br>
+            {% if answer.correct == 'yes' %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                    <label class="form-check-label" for="flexCheckChecked">
+                        Correct
+                    </label>
+                </div>
+            {% else %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Correct
+                    </label>
+                </div>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>

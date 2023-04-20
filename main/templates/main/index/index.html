@@ -10,11 +10,12 @@
     {% include 'main/index/titles/tag_questions_title.html' %} 
 {% endif %}
 
-{% for question in questions %}
+{% for question in posts %}
     {% include 'main/index/question_item.html' %}
 {% endfor %}
 
-{% include 'main/index/pagination.html' %}
-
+{% if posts.paginator.num_pages > 1 %}
+    {% include 'main/base/pagination.html' with page=posts %}
+{% endif %}
 
 {% endblock %}

@@ -38,8 +38,9 @@ main {
     height: 47px;
     border-radius: 50%;
     overflow: hidden;
-    margin-left: 18px;
+    margin-left: 34px;
 }
+
 
 .avatar-nav img {
     width: 100%;

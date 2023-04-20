@@ -1,14 +1,14 @@
 {% load static %}
 {% load mathfilters %}
 
-<div class="question">
+<div class="question-question-page">
     <div class="row">
         <div class="col-3">
-            <div class="avatar">
+            <div class="avatar-question-page">
                 <img src="{% static question.avatar %}" alt="lost" />
             </div>
             <br>
-            <div class="rating-result">
+            <div class="rating-result-question-page">
 
                 {% with counter=question.rating %} 
                 {% for i in '12345'|make_list %}
@@ -28,13 +28,10 @@
         <div class="col-9">
             <h2 class="question-title"><a href="{% url 'question_page' question.id %}">{{ question.title }}</a></h2>
             <div class="question-text">
-                {{ question.text|truncatechars:100 }}
+                {{ question.text }}
             </div>
             <br>
-            <div class="question-answers">
-                <a href="">answers ({{ question.answers }})    </a>
-            </div>
-            <div class="question-tags">
+            <div class="question-page-tags">
                 <span>Tags: </span>
                 <a href="">Python</a>
                 <a href="">Django</a>
@@ -42,3 +39,4 @@
         </div>
     </div>
 </div>
+

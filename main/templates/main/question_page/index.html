@@ -1,0 +1,22 @@
+{% extends 'main/base/base.html' %}
+
+{% block content %}
+
+    {% include 'main/question_page/question.html' %}
+
+    {% for answer in posts %}
+        {% include 'main/question_page/answer_item.html' %}
+    {% endfor %}
+
+    {% if posts.paginator.num_pages > 1 %}
+        {% include 'main/base/pagination.html' with page=posts %}
+    {% endif %}
+
+    <div class="add_answer">
+        <form action="">
+            <textarea class="form-control"  cols="50" rows="5" placeholder="Enter your answer here"></textarea>
+            <button type="button" class="btn btn-primary">Answer</button>
+        </form>
+    </div>
+
+{% endblock %}
