@@ -5,24 +5,12 @@
     <div class="row">
         <div class="col-3">
             <div class="avatar">
-                <img src="{% static question.avatar %}" alt="lost" />
+                <img src="{% static question.user.avatar %}" alt="lost" />
             </div>
-            <br>
             <div class="rating-result">
-
-                {% with counter=question.rating %} 
-                {% for i in '12345'|make_list %}
-
-                    {% if counter|sub:i >= 0 %}
-                        <span class="active"></span>
-                    {% else %}
-                        <span></span>
-                    {% endif %}
-
-                {% endfor %}
-                {% endwith %}
-
+                {% include 'main/base/like.html' %}
             </div>
+
             
         </div>
         <div class="col-9">
@@ -32,12 +20,13 @@
             </div>
             <br>
             <div class="question-answers">
-                <a href="">answers ({{ question.answers }})    </a>
-            </div>
+                <a href="{% url 'question_page' question.id %}">answers ({{ question.get_num_answers }})    </a>
+            </div><br>
             <div class="question-tags">
-                <span>Tags: </span>
-                <a href="">Python</a>
-                <a href="">Django</a>
+                Tags: 
+                {% for i in question.get_tags %}
+                    <a href="{% url 'tag_questions' i %}">{{ i }}   </a>
+                {% endfor %}
             </div>
         </div>
     </div>

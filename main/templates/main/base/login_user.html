@@ -3,15 +3,17 @@
 <div class="row">
     <div class="col-4">
         <div class="avatar-nav">
-            <a href="{% url 'settings' %}"><img src="{% static user_info.photo %}" alt="lost"></a>
+            {% with "ask_me/"|add:user_info.avatar as path %}{% endwith %}
+            
+            <a href="{% url 'settings' %}"><img src="{% static 'avatars/avatar.jpg' %}" alt="lost"></a>
         </div>       
     </div>
 
     <div class="col-8">
         <div class="user-info">
-            <span>{{ user_info.nickname }}</span> <br>
+            <span>{{ user_info.user.username }}</span> <br>
             <a href="{% url 'settings' %}">Settings</a>
-            <a href="#">log out</a>
+            <a href="{% url 'logout' %}">log out</a>
         </div>
     </div>
 </div>

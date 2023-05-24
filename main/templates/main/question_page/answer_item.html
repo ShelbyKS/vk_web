@@ -5,23 +5,10 @@
     <div class="row">
         <div class="col-3">
             <div class="avatar">
-                <img src="{% static answer.user_avatar %}" alt="lost" />
+                <img src="{% static answer.question.user.avatar %}" alt="lost" />
             </div>
-            <br>
             <div class="rating-result">
-
-                {% with counter=answer.rating %} 
-                {% for i in '12345'|make_list %}
-
-                    {% if counter|sub:i >= 0 %}
-                        <span class="active"></span>
-                    {% else %}
-                        <span></span>
-                    {% endif %}
-
-                {% endfor %}
-                {% endwith %}
-
+                {% include 'main/question_page/like.html' %}
             </div>
             
         </div>
@@ -30,7 +17,7 @@
                 {{ answer.text }}
             </div>
             <br>
-            {% if answer.correct == 'yes' %}
+            {% if answer.is_correct %}
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
                     <label class="form-check-label" for="flexCheckChecked">

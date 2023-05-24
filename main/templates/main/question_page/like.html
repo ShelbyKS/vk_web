@@ -1,0 +1,9 @@
+{% load mathfilters %}
+{% load static %}
+
+<div class="like">
+    <img src="{% static 'main/img/like.png' %}" alt="">
+    <div class="counter">
+        <span>{{answer.likes_a.count}}</span>
+    </div>
+</div>

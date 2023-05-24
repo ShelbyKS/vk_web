@@ -71,3 +71,12 @@ body .answer {
     border: gray 2px solid;
     margin-bottom: 20px;
 }
+
+.question-page-like{
+    margin-left: 35px;
+    margin-bottom: 10px;
+}
+
+.question-page-tags a{
+    margin-right: 7px;
+}

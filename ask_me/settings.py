@@ -1,5 +1,5 @@
 from pathlib import Path
-import os
+import os   
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap5'
 ]
 
 MIDDLEWARE = [
@@ -65,9 +66,20 @@ WSGI_APPLICATION = 'ask_me.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+       'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': 'ask_me',
+
+        'USER': 'postgres',
+
+        'PASSWORD': '11022003ks',
+
+        'HOST': '127.0.0.1',
+
+        'PORT': '5432',
+
     }
 }
 
@@ -107,10 +119,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIR = [ BASE_DIR / 'ask_me/main/static']
+STATICFILES_DIR = [ 
+                    BASE_DIR / 'ask_me/main/static'
+                    ]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+APPEND_SLASH = True
+LOGIN_URL = '/login'
 
