@@ -87,6 +87,7 @@ def login(request):
     return render(request, 'main/user/login.html', context)
           
 
+@login_required
 def logout(request):
     auth.logout(request)
     return redirect(reverse('index'))
