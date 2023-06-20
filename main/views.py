@@ -11,6 +11,7 @@ from django.db import IntegrityError
 from django.http import HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
 from django.forms import model_to_dict
+from ask_me import settings
 
 
 ITEMS_COUNT_ON_PAGE = 10
@@ -92,10 +93,10 @@ def login(request):
     return render(request, 'main/user/login.html', context)
           
 
-@login_required
+@login_required(login_url="login", redirect_field_name=settings.REDIRECT_FIELD_NAME)
 def logout(request):
     auth.logout(request)
-    return redirect(reverse('index'))
+    return redirect(reverse('login'))
 
 
 def signup(request):
@@ -117,7 +118,7 @@ def signup(request):
     return render(request, 'main/user/registration.html', context)
 
 
-@login_required
+@login_required(login_url="login", redirect_field_name=settings.REDIRECT_FIELD_NAME)
 def ask(request):
     context = {
         'user_info': get_user_info(request),
@@ -144,7 +145,7 @@ def ask(request):
     return render(request, 'main/ask/ask.html', context)
 
 
-@login_required
+@login_required(login_url="login", redirect_field_name=settings.REDIRECT_FIELD_NAME)
 def settings(request):
     context = {
             'popular_tags' : Question.objects.get_popular_tags(10),
