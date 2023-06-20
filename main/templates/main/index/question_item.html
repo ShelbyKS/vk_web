@@ -14,13 +14,13 @@
             
         </div>
         <div class="col-9">
-            <h2 class="question-title"><a href="{% url 'question_page' question.id %}">{{ question.title }}</a></h2>
+            <h2 class="question-title"><a href="{% url 'question' question.id %}">{{ question.title }}</a></h2>
             <div class="question-text">
                 {{ question.text|truncatechars:100 }}
             </div>
             <br>
             <div class="question-answers">
-                <a href="{% url 'question_page' question.id %}">answers ({{ question.get_num_answers }})    </a>
+                <a href="{% url 'question' question.id %}">answers ({{ question.get_num_answers }})    </a>
             </div><br>
             <div class="question-tags">
                 Tags: 

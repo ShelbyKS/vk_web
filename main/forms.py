@@ -46,7 +46,7 @@ class RegistrationForm(forms.ModelForm):
     
 
 class SettingsForm(forms.ModelForm):
-    avatar = forms.ImageField()
+   #avatar = forms.ImageField()
 
     class Meta:
         model = User

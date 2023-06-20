@@ -5,10 +5,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 from django.http import HttpResponse
 from .models import Question, Answer, Tag, Likes_a, Likes_q, Profile
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db import IntegrityError
 from django.http import HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
 from django.forms import model_to_dict
+
+
+ITEMS_COUNT_ON_PAGE = 10
 
 
 def get_user_info(request):
@@ -124,8 +129,16 @@ def ask(request):
     elif request.method == "POST":
         ask_form = AskForm(request.POST)
         if ask_form.is_valid():
-            #ask_form.save()
-            return redirect(reverse('index'))
+            question = ask_form.save(commit=False)
+            user = User.objects.get(username=request.user)
+            profile = Profile.objects.get(user=user)
+            question.user = profile
+            like = Likes_q(count = 0, user = profile)
+            like.save()
+            question.likes_q = like
+            question.save()
+            add_tags_to_question(ask_form.cleaned_data['tag_list'], question)
+            return redirect(reverse("index"))
 
     context['form'] = ask_form
     return render(request, 'main/ask/ask.html', context)
@@ -143,16 +156,16 @@ def settings(request):
         settings_form = SettingsForm(initial=current_settings)
 
     elif request.method == "POST":
-        settings_form = SettingsForm(request.POST, request.FILES)
+        settings_form = SettingsForm(data=request.POST, instance=request.user)
         if settings_form.is_valid():
-            #settings_form.save()
+            settings_form.save()
             return redirect(reverse('index'))
 
     context['form'] = settings_form
     return render(request, 'main/user/settings.html', context)
 
 
-def question_page(request, question_id):
+def question(request, question_id):
     question = Question.objects.get(id = question_id)
     if question in Question.objects.all():
         page = request.GET.get('page')
@@ -172,13 +185,33 @@ def question_page(request, question_id):
 
     elif request.method == "POST":
         answer_form = AnswerForm(request.POST)
-        if answer_form.is_valid():
-            #answer_form.save()
-            return redirect(reverse('index'))
         
-    context['form'] = answer_form
-    return render(request, 'main/question_page/index.html', context)
+        if answer_form.is_valid():
+            answer = answer_form.save(commit=False)
 
+            user = User.objects.get(username=request.user)
+            answer.user = Profile.objects.get(user=user)
+
+            answer.question = question
+            answer.is_correct = False
+            like = Likes_a(count = 0, user = Profile.objects.get(user=user))
+            like.save()
+            answer.likes_a = like
+            answer.save()
+
+            answers = question.answers.order_by('-likes_a')
+            page = paginate(request, answers)
+
+            answer_id = answer.id
+            num_page = get_num_page_by_id(page.paginator, answer_id)
+            # скроллинг по якорю: <div id="{{answer_id"}}"> </div>
+            return redirect(reverse("question", args=[question_id]) + f'?page={num_page}#{answer_id}')
+
+    answers = question.answers.order_by('-likes_a')
+    page = paginate(request, answers)
+    context['form'] = answer_form
+
+    return render(request, 'main/question_page/index.html', context)
 
 
 
@@ -195,3 +228,27 @@ def pagination(objects, page, per_page = 10):
 
     return posts
 
+
+def add_tags_to_question(tags, question):
+    for tag_name in tags.split(','):
+        tag = Tag(name=tag_name)
+        try:
+            tag.save()
+            question.tag.add(tag)
+        except IntegrityError:
+            pass
+
+
+def get_num_page_by_id(paginator, id):
+    for i in paginator.page_range:
+        entities = paginator.page(i).object_list
+        for entity in entities.all():
+            if entity.id == id:
+                return i
+    return None
+
+
+def paginate(request, page_items):
+    paginator = Paginator(page_items, ITEMS_COUNT_ON_PAGE)
+    page_number = request.GET.get('page')
+    return paginator.get_page(page_number)

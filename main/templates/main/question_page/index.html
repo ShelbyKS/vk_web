@@ -14,10 +14,9 @@
     {% endif %}
 
     <div class="add_answer">
-        <form novalidate action="/question_page/" method="post">
+        <form novalidate action="{% url 'question' question.id %}" method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
-
             <button type="submit" class="btn btn-primary">Answer</button>
         </form>
     </div>

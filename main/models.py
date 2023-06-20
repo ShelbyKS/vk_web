@@ -76,7 +76,8 @@ class Answer(models.Model):
     text = models.CharField(max_length=500)
     is_correct = models.BooleanField()
     likes_a = models.ForeignKey(to=Likes_a, on_delete=models.CASCADE)
-    question = models.ForeignKey(to=Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(to=Question, on_delete=models.CASCADE, related_name='answers')
+    user = models.ForeignKey(to=Profile, on_delete=models.CASCADE)
 
     objects = AnswerManager()
 
