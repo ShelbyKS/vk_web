@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-3">
             <div class="avatar">
-                <img src="{% static question.user.avatar %}" alt="lost" />
+                <img src="{{ question.user.avatar.url }}" alt="lost" />
             </div>
             <div class="rating-result">
                 {% include 'main/base/like.html' %}

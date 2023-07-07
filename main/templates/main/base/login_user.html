@@ -5,7 +5,7 @@
         <div class="avatar-nav">
             {% with "ask_me/"|add:user_info.avatar as path %}{% endwith %}
             
-            <a href="{% url 'settings' %}"><img src="{% static 'avatars/avatar.jpg' %}" alt="lost"></a>
+            <a href="{% url 'settings' %}"><img src="{{ request.user.profile.avatar.url }}" alt="lost"></a>
         </div>       
     </div>
 

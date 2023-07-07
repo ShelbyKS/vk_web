@@ -133,3 +133,5 @@ APPEND_SLASH = True
 LOGIN_URL = '/login'
 REDIRECT_FIELD_NAME = "continue"
 
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'

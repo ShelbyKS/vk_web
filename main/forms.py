@@ -46,11 +46,20 @@ class RegistrationForm(forms.ModelForm):
     
 
 class SettingsForm(forms.ModelForm):
-   #avatar = forms.ImageField()
+    avatar = forms.ImageField(required=False)
 
     class Meta:
         model = User
         fields = ['username', 'email']
+
+    def save(self, commit=True):
+        user = super().save(commit)
+
+        profile = user.profile
+        profile.avatar = self.cleaned_data['avatar']
+        profile.save()
+
+        return user
 
 
 class AskForm(forms.ModelForm):

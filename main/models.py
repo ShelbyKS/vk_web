@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Count
 
 
 class Tag(models.Model):
@@ -9,9 +10,17 @@ class Tag(models.Model):
         return f'{self.name}'
 
 
+class ProfileManager(models.Manager):
+    def get_best_profiles(self):
+        p_sort_by_questions = self.annotate(Count('question')).order_by('-question__count')
+        return p_sort_by_questions
+
+
 class Profile(models.Model):
-    avatar = models.ImageField(upload_to='main/static/main/avatars', null=True, blank=True)
+    avatar = models.ImageField(upload_to='avatars', null=True, blank=True)
     user = models.OneToOneField(User, on_delete=models.PROTECT) 
+
+    objects = ProfileManager()
 
 
 class Likes_a(models.Model):

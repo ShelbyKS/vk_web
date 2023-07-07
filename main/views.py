@@ -110,7 +110,7 @@ def signup(request):
         if registration_form.is_valid():
             user = registration_form.save()
             if user:
-                return redirect(reverse('index'))
+                return redirect(reverse('login'))
             else: 
                 registration_form.add_error(None, "Registration error")
 
@@ -157,7 +157,7 @@ def settings(request):
         settings_form = SettingsForm(initial=current_settings)
 
     elif request.method == "POST":
-        settings_form = SettingsForm(data=request.POST, instance=request.user)
+        settings_form = SettingsForm(data=request.POST, files = request.FILES, instance=request.user)
         if settings_form.is_valid():
             settings_form.save()
             return redirect(reverse('index'))
